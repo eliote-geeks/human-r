@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +26,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    //employee
+    Route::get('employees',[EmployeeController::class,'index'])->name('employees');
+    Route::get('add-employee',[EmployeeController::class,'add_employee'])->name('add-employee');
 });

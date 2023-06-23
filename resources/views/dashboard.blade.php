@@ -6,14 +6,14 @@
 <div class="page-wrapper">
 <div class="content container-fluid">
 <div class="page-name 	mb-4">
-<h4 class="m-0"><img src="assets/img/profile.jpg" class="mr-1" alt="profile" /> Welcome Admin</h4>
-<label>Sun, 29 Nov 2019</label>
+<h4 class="m-0"><img src="{{auth()->user()->profile_photo_url}}g" class="mr-1" alt="profile" /> Welcome Admin</h4>
+<label></label> {{\Carbon\Carbon::parse(now())->format('D, d M Y')}}</label>
 </div>
 <div class="row mb-4">
 <div class="col-xl-6 col-sm-12 col-12">
 <div class="breadcrumb-path ">
 <ul class="breadcrumb">
-<li class="breadcrumb-item"><a href="index.html"><img src="assets/img/dash.png" class="mr-3" alt="breadcrumb" />Home</a>
+<li class="breadcrumb-item"><a href="javascript:;"><img src="assets/img/dash.png" class="mr-3" alt="breadcrumb" />Home</a>
 </li>
 <li class="breadcrumb-item active">Dashboard</li>
 </ul>

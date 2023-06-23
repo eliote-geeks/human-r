@@ -23,11 +23,11 @@
 </div>
  </div>
 <ul>
-<li class="active">
-<a href="index.html"><img src="assets/img/home.svg" alt="sidebar_img"> <span>Dashboard</span></a>
+<li class="{{Request::routeIs('dashboard') ? 'active' : 'no'}}">
+<a href="{{route('dashboard')}}"><img src="assets/img/home.svg" alt="sidebar_img"> <span>Dashboard</span></a>
 </li>
-<li>
-<a href="employee.html"><img src="assets/img/employee.svg" alt="sidebar_img"><span> Employees</span></a>
+<li class="{{Request::routeIs('employees') ? 'active' : 'no'}} {{Request::routeIs('add-employee') ? 'active' : 'no'}}">
+<a href="{{route('employees')}}"><img src="assets/img/employee.svg" alt="sidebar_img"><span> Employees</span></a>
 </li>
 <li>
 <a href="company.html"><img src="assets/img/company.svg" alt="sidebar_img"> <span> Company</span></a>

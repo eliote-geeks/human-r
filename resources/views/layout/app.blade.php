@@ -17,6 +17,8 @@
 			<script src="assets/js/html5shiv.min.js"></script>
 			<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
+		    @livewireStyles
+
 </head>
 <body>
 
@@ -26,6 +28,8 @@
 
 </div>
 
+
+    @livewireScripts
 
 <script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
 

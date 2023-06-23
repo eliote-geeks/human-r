@@ -31,6 +31,19 @@
 <i class="fas fa-bars"></i>
 </a>
 
+{{-- git remote add origin https://github.com/eliote-geeks/geeks.git
+git branch -M main
+git push -u origin main --}}
+
+
+{{-- 
+echo "# geeks" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/eliote-geeks/geeks.git
+git push -u origin main --}}
 
 <ul class="nav user-menu">
 
@@ -122,10 +135,10 @@
 <li class="nav-item dropdown has-arrow main-drop">
 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
 <span class="user-img">
-<img src="assets/img/profile.jpg" alt="">
+<img src="{{auth()->user()->profile_photo_url}}" alt="">
 <span class="status online"></span>
 </span>
-<span>Kavin Hansen</span>
+<span>{{auth()->user()->name}}</span>
 </a>
 <div class="dropdown-menu">
 <a class="dropdown-item" href="profile.html"><i data-feather="user" class="mr-1"></i> Profile</a>
