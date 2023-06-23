@@ -86,7 +86,7 @@
                                 <div class="form-group">
                                 <label>
                                 <label>Gender</label>
-                                    <select class="form-control" wire:model.defer='gender'>
+                                    <select wire:model.defer='gender'>
                                         <option>M</option>
                                         <option>W</option>
                                     </select>
@@ -106,11 +106,72 @@
                         </div>
 
                         <div class="card-body">
+                            
+                                <div class="col-xl-12 col-sm-12 col-12 ">
+                                    <div class="form-group">
+                                        <label> Job Title</label>
+                                        <input type="text" placeholder="Job Title" class="form-control" wire:model.defer='job'>
+                                    </div>
+
+                                    <div class="form-group">
+                                    <label>Type</label>
+                                            <select wire:model.defer='type' class="form-control">
+                                            <option>Permanent</option>
+                                            <option>Freelance</option>
+                                            </select>
+                                        </div>
+                                </div>
+
+
+
+                                
+                            </div>
+                        </div>
+
+
+
+                                <div class="col-xl-12 col-sm-12 col-12 ">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-titles">Salary Details
+                            <span>Stored securely, only visible to Super Admins, Payroll Admins, and themselves
+.</span></h2>
+                        </div>
+
+                        <div class="card-body">
                             <div class="row">
                                 <div class="col-xl-6 col-sm-12 col-12 ">
                                     <div class="form-group">
-                                    <label> Job Title</label>
-                                    <input type="text" placeholder="Job Title" class="form-control">
+                                    <label>Salary</label>
+                                    <input type="text" placeholder="salary" wire:model.defer='salary'>
                                 </div>
+                            </div>
 
-                                                            <div class="col-xl-6 col-sm-1
+                            <div class="col-xl-6 col-sm-12 col-12 ">
+                                <div class="form-group">
+                                <label>Frequency</label>
+                                    <select wire:model.defer='frequency'>
+                                        <option>Annualy</option>
+                                        <option>Monthly</option>
+                                        <option>Weekly</option>
+                                        <option>Daily</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-sm-12 col-12 ">
+                <button class="btn btn-outline-success">Add Member</button>
+                <button class="btn btn-danger" type="button" wire:click='re' wire:loading.attr='disabled'>Reset</button>
+                @if()<p></p>
+                </div>                
+        
+                
+            </div>
+        </div>
+    </div>
+
+
+

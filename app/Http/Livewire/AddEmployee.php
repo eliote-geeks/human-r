@@ -38,7 +38,11 @@ class AddEmployee extends Component
     public $type; //freelance  employee
 
 
-
+    public function re()
+    {
+        $this->reset();
+        session()->flash('message','Clear');
+    }
     public function render()
     {
         return view('livewire.add-employee');
