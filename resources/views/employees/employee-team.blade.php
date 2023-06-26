@@ -41,8 +41,8 @@
             <div class="employee-head">
                 <h2>{{\Str::title($t->name)}} <i style="cursor:pointer;" data-feather="info"  data-toggle="modal" data-target="#info{{$t->id}}"></i></h2>
                 <ul>
-                    <li><a class="edit_employee" data-toggle="modal" data-target="#edit"><i data-feather="edit"></i></a></li>
-                    <li><a class="edit_delete" data-toggle="modal" data-target="#delete"><i data-feather="trash-2"></i></a></li>
+                    <li><a class="edit_employee" data-toggle="modal" data-target="#edit{{$t->id}}"><i data-feather="edit"></i></a></li>
+                    <li><a class="edit_delete" data-toggle="modal" data-target="#delete{{$t->id}}"><i data-feather="trash-2"></i></a></li>
                 </ul>
             </div>
         </div>
@@ -60,7 +60,7 @@
 
                 </div>
             </div>
-                <a class="btn-sm btn-info" data-toggle="modal" data-target="#addteam">Add Members</a>
+                <a class="btn-sm btn-info" data-toggle="modal" data-target="#team{{$t->id}}">Add Members</a>
         </div>
  </div>
 </div>
@@ -85,6 +85,105 @@
             </div>
         </div>
     </div>
+
+
+
+    
+        <div class="customize_popup">
+            <div class="modal fade" id="team{{$t->id}}" tabindex="-1" aria-labelledby="staticBackdropLabels1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered ">
+                    <div class="modal-content">
+                        <div class="modal-header text-centers border-0">
+                            <h5 class="modal-title text-center" id="staticBackdropLabels1">Add User on team</h5>
+                        </div>
+
+<form method="POST" action="" enctype="multipart/form-data">
+@csrf
+                      <div class="modal-footer text-centers">
+<select class="form-control" name="users[]" multiple>
+@forelse(\App\Models\User::all() as $u)
+    <option>{{$u->name}}</option>
+    @empty
+@endforelse
+</select>
+                        </div>
+
+                        <div class="modal-footer text-centers">
+                        <button type="submit" class="btn btn-primary">Add</button>
+                            <button type="button" class=" btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+
+</form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+        <div class="customize_popup">
+            <div class="modal fade" id="delete{{$t->id}}" tabindex="-1" aria-labelledby="staticBackdropLabels1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered ">
+                    <div class="modal-content">
+
+                        <div class="modal-header text-centers border-0">
+                            <h5 class="modal-title text-center" id="staticBackdropLabels1">Are You Sure Want to Delete?</h5>
+                        </div>
+
+                        <div class="modal-footer text-centers">
+                        <button type="button" class=" btn-sm btn-primary" data-dismiss="modal">Cancel</button>
+                        <a href="{{route('deleteTeam',$t->id)}}" class="btn btn-danger">Delete</a>
+                            
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    <div class="customize_popup">
+    <div class="modal fade" id="edit{{$t->id}}" tabindex="-1" aria-labelledby="staticBackdropLa" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLa">Edit Team {{ $t->name }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <div class=" col-md-12 p-0">
+<form method="post" action="{{route('editTeam',$t->id)}}">
+@csrf
+                            <br>
+                        <div class=" form m-0">
+                            <input type="text" placeholder="Name" value="{{$t->name}}" name="name" class="form-control">
+                        </div>
+                        <br>
+                     <div class=" form-popup m-0">
+                            <textarea rows="4" name="description" class="form-control">{{ $t->description }}</textarea>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Add</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+</form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 @empty
 
@@ -142,49 +241,8 @@
 </div>
 </div>
 </div>
-<div class="customize_popup">
-<div class="modal fade" id="edit" tabindex="-1" aria-labelledby="staticBackdropLa" aria-hidden="true">
-<div class="modal-dialog modal-lg modal-dialog-centered">
-<div class="modal-content">
-<div class="modal-header">
-<h5 class="modal-title" id="staticBackdropLa">Edit Employee</h5>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">×</span>
-</button>
-</div>
-<div class="modal-body">
-<div class=" col-md-12 p-0">
-<div class=" form-popup m-0">
-<input type="text" placeholder="Name">
-</div>
-</div>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-primary">Add</button>
-<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-    <div class="customize_popup">
-        <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="staticBackdropLabels1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered ">
-                <div class="modal-content">
 
-                    <div class="modal-header text-centers border-0">
-                        <h5 class="modal-title text-center" id="staticBackdropLabels1">Are You Sure Want to Delete?</h5>
-                    </div>
 
-                    <div class="modal-footer text-centers">
-                        <button type="button" class="btn btn-primary">Delete</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
 
 
 
