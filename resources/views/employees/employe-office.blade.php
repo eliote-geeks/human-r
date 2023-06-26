@@ -20,9 +20,9 @@
 <div class="col-xl-12 col-sm-12 col-12 mb-4">
 <div class="head-link-set">
 <ul>
-<li><a href="employee.html">All</a></li>
-<li><a href="employee-team.html">Teams</a></li>
-<li><a class="active" href="#">Offices</a></li>
+<li><a @if(Request::routeIs('employees')) class="active" @endif href="javascript:;">All</a></li>
+<li><a @if(Request::routeIs('employeeTeams')) class="active" @endif href="{{route('employeeTeams')}}">Teams</a></li>
+<li><a  href="javascript:;">Offices</a></li>
 </ul>
 <a class="btn-add" href="{{route('add-employee')}}"><i data-feather="plus"></i> Add Person</a>
 </div>
@@ -77,7 +77,7 @@
 <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-10.jpg">
 </div>
 <div class="avatar avatar-xs group_img group_header">
-<img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-15.jpg">
+    <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-15.jpg">
 </div>
 <div class="avatar avatar-xs group_img group_header">
 <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-16.jpg">
