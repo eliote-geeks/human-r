@@ -51,13 +51,15 @@
             <div class="employee-content">
                 <div class="employee-image">
                     <div class="avatar-group">
+                        @forelse(\App\Models\TeamUser::where([
+                            'team_id' => $t->id,
+                            ])->get() as $tu)
                         <div class="avatar avatar-xs group_img group_header">
-                            <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-14.jpg">
+                            <img class="avatar-img rounded-circle" alt="User Image" src="{{\App\Models\User::find($tu->user_id)->profile_photo_url}}">
+                            <a href="{{route('removeTeamUser',$tu->id)}}" class="text-sm text-danger"><small data-feather="trash-2"></small></a>
                         </div>
-                    <div class="avatar avatar-xs group_img group_header">
-                        <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-15.jpg">
-                    </div>
-
+    @empty
+    @endforelse
                 </div>
             </div>
                 <a class="btn-sm btn-info" data-toggle="modal" data-target="#team{{$t->id}}">Add Members</a>
@@ -97,12 +99,16 @@
                             <h5 class="modal-title text-center" id="staticBackdropLabels1">Add User on team</h5>
                         </div>
 
-<form method="POST" action="" enctype="multipart/form-data">
+<form method="POST" action="{{route('teamUser',$t->id)}}" enctype="multipart/form-data">
 @csrf
                       <div class="modal-footer text-centers">
 <select class="form-control" name="users[]" multiple>
-@forelse(\App\Models\User::all() as $u)
-    <option>{{$u->name}}</option>
+@forelse($users as $u)
+@if(\App\Models\TeamUser::where([
+    'user_id' => $u->id
+    ])->count() == 0)
+    <option value="{{$u->id}}">{{$u->name}}</option>
+@endif
     @empty
 @endforelse
 </select>

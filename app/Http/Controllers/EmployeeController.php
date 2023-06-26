@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Team;
 use App\Models\User;
+use App\Models\TeamUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -73,5 +74,30 @@ class EmployeeController extends Controller
         $team->description = $request->description;
         $team->save();
         return redirect()->back()->with('message','Success !!');
+    }
+
+    public function teamUser(Request $request,$id)
+    {
+        $team = Team::findOrFail($id);
+        $request->validate([
+            'users' => 'required|array',
+            'users.*' => 'integer'
+        ]);
+        
+        foreach($request->users as $u)
+        {
+            $tU = new TeamUser();
+            $tU->user_id = $u;
+            $tU->team_id = $team->id;
+            $tU->save();
+        }
+        return redirect()->back()->with('message','Users associate successfully !!');
+    }
+
+    public function removeTeamUser($id)
+    {
+        $tu = TeamUser::findOrFail($id);
+        $tu->delete();
+        return redirect()->back()->with('message','Success!');
     }
 }

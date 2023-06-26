@@ -34,4 +34,6 @@ Route::middleware([
     Route::post('createTeam',[EmployeeController::class,'createTeam'])->name('createTeam');
     Route::get('deleteTeam/{id}',[employeeController::class,'deleteTeam'])->name('deleteTeam');
     Route::post('edit/team/{id}',[employeeController::class,'editTeam'])->name('editTeam');
+    Route::post('teamUser/{id}',[employeeController::class,'teamUser'])->name('teamUser');
+    Route::get('removeTeamUser/{id}',[employeeController::class,'removeTeamUser'])->name('removeTeamUser');
 });
