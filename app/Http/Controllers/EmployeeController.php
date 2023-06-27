@@ -98,7 +98,13 @@ class EmployeeController extends Controller
     public function removeTeamUser($id)
     {
         $tu = TeamUser::findOrFail($id);
+        if(ChiefTeam::where('team_id',$tu->team_id)->count() > 0)
+        {
+            $c = ChiefTeam::where('team_id',$tu->team_id)->firstOrFail();
+            $c->delete();
+        }
         $tu->delete();
+        
         return redirect()->back()->with('message','Success!');
     }
 
@@ -118,6 +124,7 @@ class EmployeeController extends Controller
         else{
             $c = new ChiefTeam();
             $c->user_id = $request->user;
+            $c->team_id = $team->id;
             $c->save();
         }
 

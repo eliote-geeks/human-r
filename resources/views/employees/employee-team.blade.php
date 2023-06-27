@@ -40,7 +40,7 @@
         <div class="card-header">
             <div class="employee-head">
                 <h2>{{\Str::title($t->name)}} </h2>
-                <p>{{\App\Models\Team::chief($t->id)}}</p>
+                <p class="title">Supervisor: {{\App\Models\Team::chief($t->id)}}</p>
                 <ul>
                     <li><a class="edit_employee" data-toggle="modal" data-target="#edit{{$t->id}}"><i data-feather="edit"></i></a></li>
                     <li><a class="edit_delete" data-toggle="modal" data-target="#delete{{$t->id}}"><i data-feather="trash-2"></i></a></li> 
@@ -97,7 +97,7 @@
                     <div class="modal-content">
                         <h5 class="title text-center">Select A Chief of this team </h5>
                         <div class="modal-header text-centers border-0">
-                            <form method="post" action="{{route('chefUnity',$t->id)}}">
+                            <form method="POST" action="{{route('chefUnity',$t->id)}}">
                                 @csrf
                                 <select class="form-control" name="user">
                                     @forelse(\App\Models\TeamUser::where([
@@ -105,10 +105,10 @@
                                 ])->get() as $tu)
                                     <option value="{{$tu->user_id}}">{{\App\Models\User::find($tu->user_id)->name}}</option>
                                     @empty
-                                @endforelse
+                                    @endforelse
                                 </select>
                         <div class="modal-footer text-centers">
-                            <button type="submit" class="btn btn-primary" data-dismiss="modal">Send</button>
+                            <button type="submit" class="btn btn-primary">Send</button>
                         </div>
                             </form>
                         </div>
@@ -118,7 +118,7 @@
                     </div>
                 </div>
             </div>
-    </div>
+        </div>
 
     
         <div class="customize_popup">
