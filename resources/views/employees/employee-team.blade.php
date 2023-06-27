@@ -31,18 +31,22 @@
 </div>
 <div class="col-xl-12 col-sm-12 col-12 ">
 <div class="card m-0">
-<div class="card-body pb-0">
+<div class="card">
 <div class="row">
 @forelse($teams as $t)
 
-<div class="col-xl-6">
+<div class="col-xl-12">
     <div class="card">
         <div class="card-header">
             <div class="employee-head">
-                <h2>{{\Str::title($t->name)}} <i style="cursor:pointer;" data-feather="info"  data-toggle="modal" data-target="#info{{$t->id}}"></i></h2>
+                <h2>{{\Str::title($t->name)}} </h2>
+                <p>{{\App\Models\Team::chief($t->id)}}</p>
                 <ul>
                     <li><a class="edit_employee" data-toggle="modal" data-target="#edit{{$t->id}}"><i data-feather="edit"></i></a></li>
-                    <li><a class="edit_delete" data-toggle="modal" data-target="#delete{{$t->id}}"><i data-feather="trash-2"></i></a></li>
+                    <li><a class="edit_delete" data-toggle="modal" data-target="#delete{{$t->id}}"><i data-feather="trash-2"></i></a></li> 
+                    <li><a class="edit_delete" data-toggle="modal" data-target="#team{{$t->id}}"><i data-feather="plus"></i></a></li>
+                    <li><a class="edit_delete" data-toggle="modal" data-target="#teamChef{{$t->id}}"><i data-feather="user-plus"></i></a></li>
+                    <li><a class="edit_employee"  data-toggle="modal" data-target="#info{{$t->id}}"><i data-feather="info"></i></a></li>
                 </ul>
             </div>
         </div>
@@ -54,18 +58,16 @@
                         @forelse(\App\Models\TeamUser::where([
                             'team_id' => $t->id,
                             ])->get() as $tu)
-                        <div class="avatar avatar-xs group_img group_header">
-                            <img class="avatar-img rounded-circle" alt="User Image" src="{{\App\Models\User::find($tu->user_id)->profile_photo_url}}">
-                            <a href="{{route('removeTeamUser',$tu->id)}}" class="text-sm text-danger"><small data-feather="trash-2"></small></a>
-                        </div>
-    @empty
-    @endforelse
+                            <div class="avatar avatar-xs group_img group_header">
+                                <img class="avatar-img rounded-circle" title="{{\App\Models\User::find($tu->user_id)->name}}" alt="{{\App\Models\User::find($tu->user_id)->name}}" src="{{\App\Models\User::find($tu->user_id)->profile_photo_url}}">
+                                <a href="{{route('removeTeamUser',$tu->id)}}" class="text-sm text-danger"><small data-feather="trash-2"></small></a>
+                            </div>
+                        @empty
+                        @endforelse
+                    </div>
                 </div>
             </div>
-                <a class="btn-sm btn-info" data-toggle="modal" data-target="#team{{$t->id}}">Add Members</a>
         </div>
- </div>
-</div>
 </div>
 
 
@@ -89,6 +91,34 @@
     </div>
 
 
+        <div class="customize_popup">
+            <div class="modal fade" id="teamChef{{$t->id}}" tabindex="-1" aria-labelledby="staticBackdropLabels1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered ">
+                    <div class="modal-content">
+                        <h5 class="title text-center">Select A Chief of this team </h5>
+                        <div class="modal-header text-centers border-0">
+                            <form method="post" action="{{route('chefUnity',$t->id)}}">
+                                @csrf
+                                <select class="form-control" name="user">
+                                    @forelse(\App\Models\TeamUser::where([
+                                'team_id' => $t->id,
+                                ])->get() as $tu)
+                                    <option value="{{$tu->user_id}}">{{\App\Models\User::find($tu->user_id)->name}}</option>
+                                    @empty
+                                @endforelse
+                                </select>
+                        <div class="modal-footer text-centers">
+                            <button type="submit" class="btn btn-primary" data-dismiss="modal">Send</button>
+                        </div>
+                            </form>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+    </div>
 
     
         <div class="customize_popup">
@@ -99,38 +129,30 @@
                             <h5 class="modal-title text-center" id="staticBackdropLabels1">Add User on team</h5>
                         </div>
 
-<form method="POST" action="{{route('teamUser',$t->id)}}" enctype="multipart/form-data">
-@csrf
-                      <div class="modal-footer text-centers">
-<select class="form-control" name="users[]" multiple>
-@forelse($users as $u)
-@if(\App\Models\TeamUser::where([
-    'user_id' => $u->id
-    ])->count() == 0)
-    <option value="{{$u->id}}">{{$u->name}}</option>
-@endif
-    @empty
-@endforelse
-</select>
-                        </div>
+                        <form method="POST" action="{{route('teamUser',$t->id)}}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="modal-footer text-centers">
+                                <select class="form-control" name="users[]" multiple>
+                                    @forelse($users as $u)
+                                        @if(\App\Models\TeamUser::where([
+                                            'user_id' => $u->id])->count() == 0)
+                                            <option value="{{$u->id}}">{{$u->name}}</option>
+                                        @endif
+                                    @empty
+                                    @endforelse
+                                </select>
+                            </div>
 
-                        <div class="modal-footer text-centers">
-                        <button type="submit" class="btn btn-primary">Add</button>
-                            <button type="button" class=" btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        </div>
+                            <div class="modal-footer text-centers">
+                                <button type="submit" class="btn btn-primary">Add</button>
+                                <button type="button" class=" btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            </div>
 
-</form>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-
 
 
         <div class="customize_popup">
@@ -153,43 +175,41 @@
             </div>
         </div>
 
-
-
-    <div class="customize_popup">
-    <div class="modal fade" id="edit{{$t->id}}" tabindex="-1" aria-labelledby="staticBackdropLa" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLa">Edit Team {{ $t->name }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                        </button>
-                </div>
-                <div class="modal-body">
-                    <div class=" col-md-12 p-0">
-<form method="post" action="{{route('editTeam',$t->id)}}">
-@csrf
-                            <br>
-                        <div class=" form m-0">
-                            <input type="text" placeholder="Name" value="{{$t->name}}" name="name" class="form-control">
+        <div class="customize_popup">
+            <div class="modal fade" id="edit{{$t->id}}" tabindex="-1" aria-labelledby="staticBackdropLa" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLa">Edit Team {{ $t->name }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                            </button>
                         </div>
-                        <br>
-                     <div class=" form-popup m-0">
-                            <textarea rows="4" name="description" class="form-control">{{ $t->description }}</textarea>
+                        <div class="modal-body">
+                            <div class=" col-md-12 p-0">
+                                <form method="post" action="{{route('editTeam',$t->id)}}">
+                                    @csrf
+                                    <br>
+                                    <div class=" form m-0">
+                                        <input type="text" placeholder="Name" value="{{$t->name}}" name="name" class="form-control">
+                                    </div>
+                                    <br>
+                                    <div class=" form-popup m-0">
+                                        <textarea rows="4" name="description" class="form-control">{{ $t->description }}</textarea>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Add</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
 
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Add</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        </div>
-</form>
                     </div>
                 </div>
-
             </div>
         </div>
-    </div>
-</div>
 
 @empty
 
@@ -197,14 +217,17 @@
 
 
 </div> 
-</div>
-</div>
+
 </div>
 </div>
 </div>
 </div>
 
-
+</div>
+</div>
+<div class="container">
+    {{$teams->links()}}
+</div>
 <div class="customize_popup">
 <div class="modal fade" id="addteam" tabindex="-1" aria-labelledby="staticBackdropLabela" aria-hidden="true">
 <div class="modal-dialog modal-lg modal-dialog-centered">
