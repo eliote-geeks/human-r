@@ -55,6 +55,8 @@ class AddEmployee extends Component
         }
 
         $user = new User();
+        $user->first_name = $this->first_name;
+        $user->last_name = $this->last_name;
         $user->name = $this->first_name.' '.$user->last_name;
         $user->phone = $this->phone;
         $user->email = $this->email;

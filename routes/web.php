@@ -37,4 +37,6 @@ Route::middleware([
     Route::post('teamUser/{id}',[employeeController::class,'teamUser'])->name('teamUser');
     Route::get('removeTeamUser/{id}',[employeeController::class,'removeTeamUser'])->name('removeTeamUser');
     Route::post('chef/team/{id}',[employeeController::class,'chefUnity'])->name('chefUnity');
+    Route::get('employee/grid',[employeeController::class,'employeeGrid'])->name('employeeGrid');
+    Route::get('employeeStatus/{id}',[employeeController::class,'employeeStatus'])->name('employeeStatus');
 });

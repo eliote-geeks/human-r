@@ -37,7 +37,7 @@
 <label class="employee_count">{{$employees->count()}} People{{$employees->count() > 0 ? 's' :''}}</label>
 </div>
 <div class="col-xl-1 col-sm-2 col-12 ">
-<a href="employee-grid.html" class="btn-view "><i data-feather="grid"></i> </a>
+<a href="{{route('employeeGrid')}}" class="btn-view "><i data-feather="grid"></i> </a>
 </div>
 <div class="col-xl-1 col-sm-2 col-12 ">
 <a href="javascript:;" class="btn-view active"><i data-feather="list"></i> </a>
@@ -72,15 +72,15 @@
             </div>
         </td>
     <td>
-        <label class="action_label">Richard Wilson </label>
+        <label class="action_label">{{\App\Models\Team::ChiefTeam($e->id)}} </label>
     </td>
     <td>
-        <label class="action_label2">Design </label>
+        <label class="action_label2">{{\App\Models\Team::team($e->id)}} </label>
     </td>
     <td><label>Focus Technologies	</label></td>
-    <td><label>Team Lead</label></td>
+    <td><label>{{\App\Models\Team::ChiefTeam($e->id)== $e->name ? 'Team Lead' : 'Member'}}</label></td>
     <td class="tab-select">
-<a class="btn btn-info" href="">Active</a>
+<a class="btn btn-{{$e->profile == 'active' ? 'info' : 'danger'}}" href="{{route('employeeStatus',$e->id)}}">{{$e->profile == 'active' ? 'Active' : 'None'}}</a>
     </td>
 </tr>
 @empty
@@ -88,8 +88,14 @@
 </tbody>
 </table>
 </div>
+
+
 </div>
 </div>
+<div class="container">
+{{ $employees->links() }}
+</div>
+
 </div>
 </div>
 </div>

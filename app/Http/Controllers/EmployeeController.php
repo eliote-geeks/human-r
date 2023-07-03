@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Team;
 use App\Models\User;
+use App\Models\Employe;
 use App\Models\TeamUser;
 use App\Models\ChiefTeam;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class EmployeeController extends Controller
         ->leftJoin('employes','employes.user_id','users.id')
         ->selectRaw('users.*')
         ->orderByDesc('users.created_at')
-        ->get();
+        ->paginate(5);
         
         // dd($employees);
         return view('employees.employee-list',compact('employees'));
@@ -108,6 +109,7 @@ class EmployeeController extends Controller
         return redirect()->back()->with('message','Success!');
     }
 
+    //Ajouter ou modifier un chef d'unite
     public function chefUnity(Request $request, $id)
     {
         $request->validate([
@@ -129,6 +131,30 @@ class EmployeeController extends Controller
         }
 
         return redirect()->back()->with('message','Success!');
+    }
 
+    //employee sous forme de grid
+    public function employeeGrid()
+    {
+        $employees = DB::table('users')
+        ->leftJoin('employes','employes.user_id','users.id')
+        ->selectRaw('users.*')
+        ->orderByDesc('users.created_at')
+        ->paginate(3);
+        
+        return view('employees.employee-grid',compact('employees'));
+    }
+
+    //Modifier le status d''un employee
+    public function employeeStatus($id)
+    {
+        $employee = User::findOrFail($id);
+        if($employee->profile == 'active')
+            $employee->profile = 'none';
+        else
+            $employee->profile = 'active';
+
+        $employee->save();
+        return redirect()->back()->with('message','Success');
     }
 }
