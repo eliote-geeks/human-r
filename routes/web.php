@@ -39,4 +39,13 @@ Route::middleware([
     Route::post('chef/team/{id}',[employeeController::class,'chefUnity'])->name('chefUnity');
     Route::get('employee/grid',[employeeController::class,'employeeGrid'])->name('employeeGrid');
     Route::get('employeeStatus/{id}',[employeeController::class,'employeeStatus'])->name('employeeStatus');
+
+    //Employee profile
+    Route::get('profile/employee/{id}',[EmployeeController::class,'profile'])->name('profileEmployee');
+    Route::post('change/team/{id}',[EmployeeController::class,'changeTeamUser'])->name('changeTeamUser');
+    Route::post('postion/edit/{id}',[EmployeeController::class,'positionEdit'])->name('positionEdit');
+
+
+    //Edit Week
+    Route::get('edit/week/{id}/{user}',[EmployeeController::class,'weekEdit'])->name('editWeek');
 });

@@ -26,4 +26,18 @@ class Team extends Model
     {
         return (TeamUser::where('user_id',$id)->count() > 0) ? Team::find(TeamUser::where('user_id',$id)->firstOrFail()->team_id)->name : 'none';
     }
+
+    public function teamChief($id)
+    {
+        if(TeamUser::where('user_id',$id)->count() > 0){
+            $team = TeamUser::where('user_id',$id)->firstOrFail()->team_id;
+            return ChiefTeam::where('team_id',$team)->count() > 0 ? User::findOrFail(ChiefTeam::where('team_id',$team)->firstOrFail()->user_id)->name : 'no Team Leader';
+        }
+        else{
+            return 'no team';
+        }
+    }
+
+
+
 }
