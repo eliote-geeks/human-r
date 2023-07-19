@@ -248,7 +248,12 @@ class EmployeeController extends Controller
                     'day' => $id,
                     'user_id' => User::findOrFail($user)->id
                     ])->firstOrFail();
-                    $week->status = 0;
+                    
+                    if($week->status == 0)
+                        $week->status = 1;
+                    else
+                        $week->status = 0;
+
                     $week->save();
                     return redirect()->back()->with('message','saved!!');
             }
