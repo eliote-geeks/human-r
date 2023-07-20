@@ -181,13 +181,13 @@
                                 <div class="card-body d-flex ">
                                     <div class="form-week">
                                         <ul>
-                                            <li><a class="{{\App\Models\Week::where(['day' => 1,'user_id' => $user->id])->count() > 0 ? 'active' : 'inactive'}}" href="{{route('editWeek',[1,$user->id])}}">Mon</a></li>
-                                            <li><a class="{{\App\Models\Week::where(['day' => 2,'user_id' => $user->id])->count() > 0 ? 'active' : 'inactive'}}" href="{{route('editWeek',[2,$user->id])}}">Tue</a></li>
-                                            <li><a class="{{\App\Models\Week::where(['day' => 3,'user_id' => $user->id])->count() > 0 ? 'active' : 'inactive'}}" href="{{route('editWeek',[3,$user->id])}}">Wed</a></li>
-                                            <li><a class="{{\App\Models\Week::where(['day' => 4,'user_id' => $user->id])->count() > 0 ? 'active' : 'inactive'}}" href="{{route('editWeek',[4,$user->id])}}">Thur</a></li>
-                                            <li><a class="{{\App\Models\Week::where(['day' => 5,'user_id' => $user->id])->count() > 0 ? 'active' : 'inactive'}}" href="{{route('editWeek',[5,$user->id])}}">Fri</a></li>
-                                            <li><a class="{{\App\Models\Week::where(['day' => 6,'user_id' => $user->id])->count() > 0 ? 'active' : 'inactive'}}" href="{{route('editWeek',[6,$user->id])}}">Sat</a></li>
-                                            <li><a class="{{\App\Models\Week::where(['day' => 7,'user_id' => $user->id])->count() > 0 ? 'active' : 'inactive'}}" href="{{route('editWeek',[7,$user->id])}}">Sun</a></li>
+                                            <li><a class="{{\App\Models\Week::where(['day' => 1,'user_id' => $user->id,'status' => 1])->count() > 0 ? 'active' : 'inactive'}}" href="{{route('editWeek',[1,$user->id])}}">Mon</a></li>
+                                            <li><a class="{{\App\Models\Week::where(['day' => 2,'user_id' => $user->id,'status' => 1])->count() > 0 ? 'active' : 'inactive'}}" href="{{route('editWeek',[2,$user->id])}}">Tue</a></li>
+                                            <li><a class="{{\App\Models\Week::where(['day' => 3,'user_id' => $user->id,'status' => 1])->count() > 0 ? 'active' : 'inactive'}}" href="{{route('editWeek',[3,$user->id])}}">Wed</a></li>
+                                            <li><a class="{{\App\Models\Week::where(['day' => 4,'user_id' => $user->id,'status' => 1])->count() > 0 ? 'active' : 'inactive'}}" href="{{route('editWeek',[4,$user->id])}}">Thur</a></li>
+                                            <li><a class="{{\App\Models\Week::where(['day' => 5,'user_id' => $user->id,'status' => 1])->count() > 0 ? 'active' : 'inactive'}}" href="{{route('editWeek',[5,$user->id])}}">Fri</a></li>
+                                            <li><a class="{{\App\Models\Week::where(['day' => 6,'user_id' => $user->id,'status' => 1])->count() > 0 ? 'active' : 'inactive'}}" href="{{route('editWeek',[6,$user->id])}}">Sat</a></li>
+                                            <li><a class="{{\App\Models\Week::where(['day' => 7,'user_id' => $user->id,'status' => 1])->count() > 0 ? 'active' : 'inactive'}}" href="{{route('editWeek',[7,$user->id])}}">Sun</a></li>
                                         </ul>
                                     </div>
                                 </div>
